@@ -1,10 +1,30 @@
 import React from 'react'
-import { render } from 'react-dom'
+import {getFunName} from '../helpers'
 
 class StorePicker extends React.Component {
-  render(){
-    return<p> Hello</p>
+
+  goToStore(event){
+    event.preventDefault();
+    const storeId = this.storeInput.value
+    console.log(`going to ${storeId}`)
+    this.context.router.transitionTo(`/store/${storeId}`)
   }
+  render(){
+    return(
+        <form className = 'store-selector' onSubmit={this.goToStore.bind(this)}>
+          <h2>Please Enter A store</h2>
+          <input type = 'text' required placeholder = 'store Name'
+            defaultValue= {getFunName()} ref={(input) => {this.storeInput = input}}/>
+          <button type='submit'> Visit Store -> </button>
+        </form>
+
+    )
+  }
+
+}
+
+StorePicker.contextTypes = {
+  router: React.PropTypes.object
 }
 
 export default StorePicker
