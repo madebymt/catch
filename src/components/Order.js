@@ -20,7 +20,19 @@ class Order extends React.Component {
 
     return (
       <li key={key}>
-        <span> {count}lbs {fish.name} {removeButton}</span>
+        <span>
+          <CSStransitionGroup
+            component ='span'
+            className='count'
+            transitionName='count'
+            transitionEnterTimeout={250}
+            transitionLeaveTimeout={250}>
+
+          <span key={count}>{count}</span>
+          </CSStransitionGroup>
+
+          lbs {fish.name} {removeButton}
+        </span>
         <span className='price'>{formatPrice(count * fish.price)}
         </span>
       </li>
@@ -45,8 +57,8 @@ class Order extends React.Component {
           <CSStransitionGroup className="order"
             component ='ul'
             transitionName='order'
-            transitionEnterTimeout={5000}
-            transitionLeaveTimeout={5000}
+            transitionEnterTimeout={500}
+            transitionLeaveTimeout={500}
             >
 
               {orderId.map(this.renderOrder)}
@@ -60,6 +72,12 @@ class Order extends React.Component {
 
     )
   }
+}
+
+Order.PropTypes = {
+  fishes:React.PropTypes.func.isRequired,
+  order:React.PropTypes.func.isRequired,
+  removeFromOrder:React.PropTypes.func.isRequired,
 }
 
 export default Order
